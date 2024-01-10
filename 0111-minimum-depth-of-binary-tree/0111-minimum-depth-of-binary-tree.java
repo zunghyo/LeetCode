@@ -13,31 +13,42 @@
  *     }
  * }
  */
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Solution {
-    private int min = Integer.MAX_VALUE;
     
     public int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
         
-        dfs(root, 1);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int depth = 1;
         
-        return min;
-    }
-    
-    public void dfs(TreeNode node, int depth) {
-        if(node == null) {
-            return;
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            
+            for(int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+
+                if(node.left == null && node.right == null) {
+                    return depth;
+                }
+
+                if(node.left != null) {
+                    queue.add(node.left);
+                }
+
+                if(node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            
+            depth++;
         }
         
-        if(node.left == null && node.right == null) {
-            min = Math.min(depth, min);
-            return;
-        }
-        
-        dfs(node.left, depth + 1);
-        dfs(node.right, depth + 1);
+        return depth;
     }
-    
 }
