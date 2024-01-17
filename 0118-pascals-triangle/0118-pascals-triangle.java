@@ -3,24 +3,24 @@ class Solution {
 
         List<List<Integer>> result = new ArrayList<>();
         
-        dfs(result, 0, numRows);
+        generateRow(result, 0, numRows);
         
         return result;
     }
     
-    public void dfs(List<List<Integer>> result, int depth, int numRows) {
+    public void generateRow(List<List<Integer>> result, int depth, int numRows) {
         if(depth == numRows) {
             return;
         }
-        List<Integer> temp = new ArrayList<>();
+        List<Integer> currentRow = new ArrayList<>();
         for(int i = 0; i <= depth; i++) {
             if(i == 0 || i == depth) {
-                temp.add(1);
+                currentRow.add(1);
             } else {
-                temp.add(result.get(depth-1).get(i-1) + result.get(depth-1).get(i));
+                currentRow.add(result.get(depth-1).get(i-1) + result.get(depth-1).get(i));
             }
         }
-        result.add(temp);
-        dfs(result, depth+1, numRows);
+        result.add(currentRow);
+        generateRow(result, depth + 1, numRows);
     }
 }
