@@ -12,9 +12,17 @@ class Solution {
             }
         }
                
-        String cleanedStr = cleaned.toString();
-        String reversedStr = cleaned.reverse().toString();
+        int left = 0;
+        int right = cleaned.length() - 1;
         
-        return cleanedStr.equals(reversedStr);
+        while (left < right) {
+            if (cleaned.charAt(left) != cleaned.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
     }
 }
